@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+source .env
+
+docker exec ${APACHE_NAME} /bin/sh -c "cd ${REMOTE_LOCATION_WEB_SYNCFOLDER}; [ -f ${REMOTE_LOCATION_WEB_SYNCFOLDER}/composer.json ] && . composer install --optimize-autoloader"

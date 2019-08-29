@@ -1,0 +1,6 @@
+.data/*
+!.data/.gitkeep
+.idea/
+.docker-sync/
+docker-sync.yml
+docker-compose.yml

@@ -1,0 +1,61 @@
+version: "3.2"
+services:
+  php:
+    build:
+      context: ./.environment/php/
+      args:
+        PHP_VERSION: ${PHP_VERSION}
+    networks:
+      - backend
+    volumes:
+      - webfolder-standard-sync:${REMOTE_LOCATION_WEB_SYNCFOLDER:-/var/www/html/}
+    container_name: ${PHP_NAME}
+  apache:
+    build:
+      context: ./.environment/apache/
+      args:
+        APACHE_VERSION: ${APACHE_VERSION}
+    depends_on:
+      - php
+      - mariadb
+    networks:
+      - backend
+      - frontend
+    ports:
+      - "80:80"
+    volumes:
+      - webfolder-standard-sync:${REMOTE_LOCATION_WEB_SYNCFOLDER:-/var/www/html/}
+    container_name: ${APACHE_NAME}
+  mariadb:
+    image: mariadb:${MARIADB_VERSION:-latest}
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - database-standard-sync:${REMOTE_LOCATION_MARIADB_SYNCFOLDER:-/var/lib/mysql}
+    networks:
+      - backend
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    container_name: ${MARIADB_NAME}
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    networks:
+      - backend
+    restart: always
+    container_name: ${ADMINER_NAME}
+
+networks:
+  backend:
+  frontend:
+
+volumes:
+  webfolder-standard-sync:
+    external: true
+  database-standard-sync:
+    external: true

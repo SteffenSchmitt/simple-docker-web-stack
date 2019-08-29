@@ -1,0 +1,15 @@
+version: "2"
+syncs:
+  webfolder-standard-sync:
+    src: './webroot'
+    sync_host_port: 10872
+    sync_strategy: 'unison'
+#    sync_userid: '33'
+    sync_excludes: [ '.idea', '.git', '.DS_Store' ]
+
+  database-standard-sync:
+    src: './.data'
+    sync_host_port: 10872
+    sync_strategy: 'unison'
+#    sync_userid: '33'
+    sync_excludes: [ '.idea', '.git', '.DS_Store' ]
