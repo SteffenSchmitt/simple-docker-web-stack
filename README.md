@@ -1,7 +1,7 @@
 # Simple docker-compose web development environment
 ## Installation
 
-1. ch ${PROJECT_ROOT}
+1. cd ${PROJECT_ROOT}
 2. ln -ls ./environment/.env.dist .env
 3. ln -ls docker-compose.{YOUR_DESIRED_CONFIG}.yml docker-compose.yml
 4. ln -ls docker-sync.{YOUR_DESIRED_SYNC_STRATEGY}.yml docker-sync.yml
